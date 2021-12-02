@@ -3,15 +3,16 @@ package com.justin.cruddemo.controller;
 
 import com.justin.cruddemo.service.CustomerService;
 import com.justin.cruddemo.utils.dto.CustomerUI;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.logging.Logger;
 
+@Slf4j
 @RestController
 public class CustomerController {
 
@@ -37,10 +38,9 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/getCustomerById/{id}")
-    public ResponseEntity<CustomerUI> getCustomerById(@PathVariable String id)
-    {
-        final CustomerUI customerUI = customerService.fetchCustomerById(id).get();
-        return new ResponseEntity<CustomerUI>(customerUI, HttpStatus.OK);
+    public CustomerUI getCustomerById(@PathVariable String id) throws Exception {
+        return customerService.fetchCustomerById(id);
+
     }
 
     @DeleteMapping(path = "/deleteAll")

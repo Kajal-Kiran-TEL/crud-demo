@@ -1,7 +1,6 @@
 package com.justin.cruddemo.service;
 
 import com.justin.cruddemo.model.Customer;
-
 import com.justin.cruddemo.repository.CustomerRepository;
 import com.justin.cruddemo.utils.dto.CustomerUI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Service
 public class CustomerService {
@@ -29,19 +30,27 @@ public class CustomerService {
             customerUI.setCustomerAddress(customer.getCustomerAddress());
             customerUI.setCustomerStatus(customer.isCustomerStatus());
             customerUI.setCreatedAt(customer.getCreatedAt());
+            customerUIList.add(customerUI);
         }
+        System.out.println(customerUIList);
         return customerUIList;
     }
 
-    public Optional<CustomerUI> fetchCustomerById(String id) {
+    public CustomerUI fetchCustomerById(String id) throws Exception{
+
         Optional<Customer> customerOptional = customerRepository.findById(id);
-        Optional<CustomerUI> customerUI = Optional.empty();
-        customerUI.get().setId(customerOptional.get().getId());
-        customerUI.get().setCustomerName(customerOptional.get().getCustomerName());
-        customerUI.get().setCustomerAddress(customerOptional.get().getCustomerAddress());
-        customerUI.get().setCustomerStatus(customerOptional.get().isCustomerStatus());
-        customerUI.get().setCustomerName(customerOptional.get().getCustomerName());
-        customerUI.get().setCreatedAt(customerOptional.get().getCreatedAt());
+
+        if(!customerOptional.get().isCustomerStatus()) {
+            throw  new Exception(String.valueOf(UNAUTHORIZED));
+        }
+
+        CustomerUI customerUI = new CustomerUI();
+        customerUI.setId(customerOptional.get().getId());
+        customerUI.setCustomerName(customerOptional.get().getCustomerName());
+        customerUI.setCustomerAddress(customerOptional.get().getCustomerAddress());
+        customerUI.setCustomerStatus(customerOptional.get().isCustomerStatus());
+        customerUI.setCustomerName(customerOptional.get().getCustomerName());
+        customerUI.setCreatedAt(customerOptional.get().getCreatedAt());
         return customerUI;
     }
 
