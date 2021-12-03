@@ -62,7 +62,7 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
-<<<<<<< HEAD
+
 		</dependency>
 			<dependency>
 				<groupId>org.powermock</groupId>
@@ -75,17 +75,6 @@
 			<artifactId>powermock-module-junit4</artifactId>
 			<version>2.0.9</version>
 		</dependency>
-
-=======
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.7.4</version>
-			<scope>test</scope>
-		</dependency>
->>>>>>> ab307ba78077f79ffc8c780056cbdcdcb1457184
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
